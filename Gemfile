@@ -27,6 +27,7 @@ end
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platform => :ruby
 
+
  #  gem 'uglifier', '>= 1.0.3'
 
 gem 'jquery-rails', '2.1.4'
