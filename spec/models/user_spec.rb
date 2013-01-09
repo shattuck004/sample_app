@@ -1,30 +1,20 @@
-# == Schema Information
-#
-# Table name: users
-#
-#  id              :integer         not null, primary key
-#  name            :string(255)
-#  email           :string(255)
-#  created_at      :datetime        not null
-#  updated_at      :datetime        not null
-#  password_digest :string(255)
-#
-
 require 'spec_helper'
 
 describe User do
 
-   before do
+  before do
     @user = User.new(name: "Example User", email: "user@example.com",
                      password: "foobar", password_confirmation: "foobar")
   end
 
   subject { @user }
+
   it { should respond_to(:name) }
   it { should respond_to(:email) }
-  it { should respond_to(:password_digest) }
+ it { should respond_to(:password_digest) }
   it { should respond_to(:password) }
   it { should respond_to(:password_confirmation) }
+
 
   it { should be_valid }
 
@@ -33,12 +23,12 @@ describe User do
     it { should_not be_valid }
   end
 
-  describe "when email is not present" do
+describe "when email is not present" do
     before { @user.email = " " }
     it { should_not be_valid }
   end
 
-describe "when name is too long" do
+  describe "when name is too long" do
     before { @user.name = "a" * 51 }
     it { should_not be_valid }
   end
@@ -64,6 +54,16 @@ describe "when name is too long" do
     end
   end
 
+describe "email address with mixed case" do
+    let(:mixed_case_email) { "Foo@ExAMPle.CoM" }
+
+    it "should be saved as all lower-case" do
+      @user.email = mixed_case_email
+      @user.save
+      @user.reload.email.should == mixed_case_email.downcase
+    end
+  end
+
   describe "when email address is already taken" do
     before do
       user_with_same_email = @user.dup
@@ -72,9 +72,9 @@ describe "when name is too long" do
     end
 
     it { should_not be_valid }
- end
+  end
 
-it { should respond_to(:authenticate) }
+  it { should respond_to(:authenticate) }
 
  describe "when password is not present" do
     before { @user.password = @user.password_confirmation = " " }
@@ -111,5 +111,5 @@ describe "with a password that's too short" do
       specify { user_for_invalid_password.should be_false }
     end
   end
-end
 
+end
