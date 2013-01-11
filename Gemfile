@@ -35,6 +35,7 @@ gem 'jquery-rails', '2.1.4'
 
 group :test, :development do
 	gem 'rspec-rails', '2.10.0'
+	gem "rake", "!= 0.9.0"
 	gem 'wdm', '0.0.3'
 	gem 'guard-rspec', '0.5.5'
 	# gem 'guard-spork', '0.3.2'
